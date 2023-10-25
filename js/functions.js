@@ -1,20 +1,24 @@
-// Проверка длины строки
-function checkStringLength(string, maxLength) {
-  return string.length <= maxLength;
+// Функция Делу - Время
+
+function isMeetingWithinWorkingDay(startTime, endTime, meetingStart, meetingDuration) {
+  const workingDayStart = convertTimeStringToMinutes(startTime);
+  const workingDayEnd = convertTimeStringToMinutes(endTime);
+
+  const meetingStartTime = convertTimeStringToMinutes(meetingStart);
+  const meetingEndTime = meetingStartTime + meetingDuration;
+
+  return (meetingStartTime >= workingDayStart && meetingEndTime <= workingDayEnd);
+}
+
+function convertTimeStringToMinutes(timeString) {
+  const [hours, minutes] = timeString.split(':').map(Number);
+  return hours * 60 + minutes;
 }
 
 /* eslint-disable no-console */
-console.log(checkStringLength('проверяемая строка', 20));
-console.log(checkStringLength('проверяемая строка', 18));
-console.log(checkStringLength('проверяемая строка', 11));
-
-// Проверка, является ли строка палиндромом
-function palindrome(str) {
-  str = str.toLowerCase().replace(/ /g, '');
-  return str.split('').reverse().join('') === str;
-}
-
-console.log(palindrome('топот'));
-console.log(palindrome('ДовОд'));
-console.log(palindrome('Кекс'));
-console.log(palindrome('Лёша на полке клопа нашёл'));
+console.log(isMeetingWithinWorkingDay('08:00', '17:30', '14:00', 90));
+console.log(isMeetingWithinWorkingDay('8:0', '10:0', '8:0', 120));
+console.log(isMeetingWithinWorkingDay('08:00', '14:30', '14:00', 90));
+console.log(isMeetingWithinWorkingDay('14:00', '17:30', '08:0', 90));
+console.log(isMeetingWithinWorkingDay('8:00', '17:30', '08:00', 900));
+/* eslint-enable no-console */
