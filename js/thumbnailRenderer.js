@@ -15,13 +15,13 @@ const createThumbnail = (photo) => {
 
 const renderThumbnails = () => {
   const photos = generatePhotos();
-  const fragment = document.createDocumentFragment();
-  photos.forEach((photo) => {
-    const thumbnail = createThumbnail(photo);
-    fragment.appendChild(thumbnail);
-  });
   const picturesContainer = document.querySelector('.pictures');
-  picturesContainer.appendChild(fragment);
+
+  photos.forEach((photo, index) => {
+    const thumbnail = createThumbnail(photo);
+    thumbnail.querySelector('.picture').dataset.id = `picture-${index}`;
+    picturesContainer.appendChild(thumbnail);
+  });
 };
 
 export { renderThumbnails };
