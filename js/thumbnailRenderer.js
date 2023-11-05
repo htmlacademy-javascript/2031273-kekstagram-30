@@ -13,14 +13,11 @@ const createThumbnail = (photo) => {
   return thumbnail;
 };
 
-const renderThumbnails = () => {
-  const photos = generatePhotos();
-  const picturesContainer = document.querySelector('.pictures');
-
-  photos.forEach((photo, index) => {
+const renderThumbnails = (photos, container) => {
+  photos.forEach((photo) => {
     const thumbnail = createThumbnail(photo);
-    thumbnail.querySelector('.picture').dataset.id = `picture-${index}`;
-    picturesContainer.appendChild(thumbnail);
+    thumbnail.querySelector('.picture').dataset.id = photo.id;
+    container.appendChild(thumbnail);
   });
 };
 
