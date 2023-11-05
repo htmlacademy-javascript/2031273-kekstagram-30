@@ -1,5 +1,5 @@
-import { renderThumbnails } from "./thumbnailRenderer.js";
-import { showPicture } from "./picture.js";
+import { renderThumbnails } from './thumbnailRenderer.js';
+import { showPicture } from './picture.js';
 
 function renderGallery(pictures) {
   const container = document.querySelector('.pictures');

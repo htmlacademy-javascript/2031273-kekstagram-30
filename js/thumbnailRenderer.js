@@ -1,5 +1,3 @@
-import { generatePhotos } from './data.js';
-
 const createThumbnail = (photo) => {
   const template = document.querySelector('#picture');
   const thumbnail = template.content.cloneNode(true);

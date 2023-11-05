@@ -23,7 +23,7 @@ const createComment = ({ avatar, message, name }) => {
   newComment.querySelector('.social__text').textContent = message;
 
   return newComment;
-}
+};
 const renderComments = () => {
   commentsCountShown += COMMENTS_COUNT_SHOWN;
 
