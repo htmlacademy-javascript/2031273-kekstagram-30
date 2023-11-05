@@ -2,7 +2,7 @@ const COMMENTS_COUNT_SHOWN = 5;
 
 const bigPictureElement = document.querySelector('.big-picture');
 const bodyElement = document.querySelector('body');
-const closePictureButtonElment = bigPictureElement.querySelector('.big-picture__cancel');
+const closePictureButtonElement = bigPictureElement.querySelector('.big-picture__cancel');
 
 const commentsListElement = bigPictureElement.querySelector('.social__comments');
 const commentsCountElement = bigPictureElement.querySelector('.social__comment-shown-count');
@@ -88,7 +88,7 @@ const showPicture = (pictureData) => {
   renderPicture(pictureData);
 };
 
-closePictureButtonElment.addEventListener('click', onClosePictureButtonClick);
+closePictureButtonElement.addEventListener('click', onClosePictureButtonClick);
 commentsLoaderElement.addEventListener('click', onCommentsLoaderClick);
 
 export { showPicture };
