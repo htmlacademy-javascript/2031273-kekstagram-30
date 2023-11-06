@@ -7,6 +7,33 @@ const COMMENTS_SENTENCES = [
   'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
 ];
+
+const DESCRIPTIONS = [
+  'На фотографии мы видим красивое небо #instagood #smile',
+  'Фотография была сделана ночью #phototherapy #beautiful #nature',
+  'На заднем плане находится сад с деревьями #nature #beautiful #instagood #fun',
+  'На переднем плане играющие котята #friends #phototherapy',
+  'В центре фотографии наш дом',
+  'Встречайте рассвет со мной! #dawn #motivation',
+  'Новые приключения ждут меня! #travel #adventure',
+  'Счастье - это магия в маленьких моментах! #happiness #moments',
+  'Вдохновение захватывает меня каждый день! #inspiration #quotes',
+  'Никогда не переставай мечтать! #dreams #goals',
+  'Любовь - самое прекрасное чувство на свете! #love #family',
+  'Находите красоту в мире каждый день! #beauty #nature',
+  'Ощущение свободы в каждой атомосфере! #freedom #nature',
+  'Океан - мое лекарство от всех забот! #ocean #relax',
+  'Улыбка распускается, как цветок весной! #smile #instagood',
+  'Фотография создаёт весёлое настроение',
+  'Автор фотографии показывает, что всё не вечно',
+  'У человека на фото счастливый вид #picoftheday #nature #happy',
+  'На фотографии мой младший брат. Он без ума от животных. #happy #love',
+  'На детской площадке можно увидеть забавных детей. За ними простые футбольные ворота. ' +
+  'Трава ярко-зеленая, и деревья на заднем плане тоже зеленые.',
+  'На фотографии вы можете видеть мою сестру. Ее зовут Ирина, и она хорошая спортсменка. ' +
+  'Всякий раз, когда у нее есть свободное время, она ходит на стадион заниматься спортом. #friends'
+];
+
 const COMMENTER_NAMES = ['Александр', 'Екатерина', 'Михаил', 'Анна', 'Дмитрий', 'София'];
 
 export function generatePhotos() {
@@ -17,7 +44,8 @@ export function generatePhotos() {
   for (let i = 0; i < 25; i++) {
     const id = ids[i];
     const url = urls[i];
-    const description = `Описание фотографии ${id}`;
+    const descriptionIndex = Math.floor(Math.random() * DESCRIPTIONS.length);
+    const description = DESCRIPTIONS[descriptionIndex];
     const likes = Math.floor(Math.random() * (200 - 15 + 1) + 15);
     const commentsCount = Math.floor(Math.random() * 31);
     const comments = [];
