@@ -1,3 +1,5 @@
+import { pristine } from './validate-form.js';
+
 function getElement(selector) {
   return document.querySelector(selector);
 }
@@ -14,12 +16,18 @@ const toggleClasses = (isOpen = true) => {
 const onOpenImageUpload = () => {
   toggleClasses();
   document.addEventListener('keydown', onDocumentKeydown);
+  if (pristine) {
+    pristine.reset();
+  }
 };
 
 const onCloseImageUpload = () => {
   imageInput.value = '';
   toggleClasses(false);
   document.removeEventListener('keydown', onDocumentKeydown);
+  if (pristine) {
+    pristine.reset();
+  }
 };
 
 function onDocumentKeydown(evt) {
