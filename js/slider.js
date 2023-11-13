@@ -1,5 +1,6 @@
 import { getElement } from './util.js';
 import noUiSlider from 'nouislider';
+import 'nouislider/dist/nouislider.css';
 import { EFFECT_OPTION_MAP } from './effects.js';
 
 const sliderElement = getElement('.effect-level__slider');
@@ -53,7 +54,7 @@ fileInput.addEventListener('change', (event) => {
 
   reader.onload = (e) => {
     image.src = e.target.result;
-    resetEffect(); // Сброс эффекта при загрузке новой фотографии
+    resetEffect();
   };
 
   reader.readAsDataURL(file);
