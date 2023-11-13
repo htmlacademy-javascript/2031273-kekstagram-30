@@ -1,12 +1,11 @@
+import { getElement } from './util';
 import { pristine } from './validate-form.js';
-
-function getElement(selector) {
-  return document.querySelector(selector);
-}
+import { changeImage } from './scale-img';
 
 const imageInput = getElement('.img-upload__input');
 const imageUpload = getElement('.img-upload__overlay');
 const closeImageButton = getElement('.img-upload__cancel');
+const scaleValueInput = getElement('.scale__control--value');
 
 const toggleClasses = (isOpen = true) => {
   imageUpload.classList.toggle('hidden', !isOpen);
@@ -16,18 +15,15 @@ const toggleClasses = (isOpen = true) => {
 const onOpenImageUpload = () => {
   toggleClasses();
   document.addEventListener('keydown', onDocumentKeydown);
-  if (pristine) {
-    pristine.reset();
-  }
+  changeImage(100);
+  scaleValueInput.value = '100%';
 };
 
 const onCloseImageUpload = () => {
   imageInput.value = '';
   toggleClasses(false);
   document.removeEventListener('keydown', onDocumentKeydown);
-  if (pristine) {
-    pristine.reset();
-  }
+  pristine.reset();
 };
 
 function onDocumentKeydown(evt) {
@@ -43,3 +39,5 @@ function onDocumentKeydown(evt) {
 
 imageInput.addEventListener('change', onOpenImageUpload);
 closeImageButton.addEventListener('click', onCloseImageUpload);
+
+export { onOpenImageUpload, onCloseImageUpload };
