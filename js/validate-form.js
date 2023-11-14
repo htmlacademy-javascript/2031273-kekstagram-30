@@ -61,3 +61,5 @@ form.addEventListener('submit', (evt) => {
     evt.preventDefault();
   }
 });
+
+export { pristine };
