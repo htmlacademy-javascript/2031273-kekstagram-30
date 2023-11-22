@@ -1,9 +1,8 @@
-import { getElement } from './util.js';
+import Pristine from 'pristinejs';
 
-const form = getElement('.img-upload__form');
-const textHashtags = getElement('.text__hashtags');
-const textDescriptions = getElement('.text__description');
-
+const textHashtags = document.querySelector('.text__hashtags');
+const textDescriptions = document.querySelector('.text__description');
+const form = document.querySelector('.img-upload__form');
 const pristine = new Pristine(form, {
   classTo: 'img-upload__field-wrapper',
   errorClass: 'img-upload__field-wrapper--error',
@@ -17,10 +16,14 @@ pristine.addValidator(
   'Длина комментария больше 140 символов'
 );
 
+
 pristine.addValidator(
   textHashtags,
   (value) => {
-    const hashtags = value.trim().split(' ');
+    const hashtags = value
+      .trim()
+      .split(' ')
+      .filter((el) => el !== '');
     return hashtags.length - 1 < 5;
   },
   'превышено количество хэш-тегов'
@@ -29,8 +32,12 @@ pristine.addValidator(
 pristine.addValidator(
   textHashtags,
   (value) => {
-    const hashtags = value.trim().split(' ');
-    const regexPattern = /^#(?=.*[^0-9])[a-zа-яё0-9]{1,29}$/i;
+    const hashtags = value
+      .trim()
+      .split(' ')
+      .filter((el) => el !== '');
+
+    const regexPattern = /^#(?=.*[^0-9])[a-zа-яё0-9]{1,19}$/i;
 
     if (hashtags[0] === '') {
       return true;
@@ -50,16 +57,14 @@ pristine.addValidator(
 pristine.addValidator(
   form.querySelector('.text__hashtags'),
   (value) => {
-    const hashtags = value.trim().toLocaleLowerCase().split(' ');
+    const hashtags = value
+      .trim()
+      .toLocaleLowerCase()
+      .split(' ')
+      .filter((el) => el !== '');
     return !(new Set(hashtags).size !== hashtags.length);
   },
   'хэш-теги повторяются'
 );
 
-form.addEventListener('submit', (evt) => {
-  if (!pristine.validate()) {
-    evt.preventDefault();
-  }
-});
-
-export { pristine };
+export const isValid = () => pristine.validate();

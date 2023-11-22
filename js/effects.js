@@ -1,14 +1,17 @@
+const FROM_ZERO_TO_ONE = createSliderData(0, 1, 0.1);
+const FROM_ZERO_TO_HUNDRED = createSliderData(0, 100);
+
 export const EFFECT_OPTION_MAP = {
   none: {
-    slider: createSliderData(0, 100),
+    slider: FROM_ZERO_TO_HUNDRED,
   },
   chrome: {
-    slider: createSliderData(0, 1, 0.1),
+    slider: FROM_ZERO_TO_ONE,
     filter: (value) => `grayscale(${value})`,
   },
 
   sepia: {
-    slider: createSliderData(0, 1, 0.1),
+    slider: FROM_ZERO_TO_ONE,
     filter: (value) => `sepia(${value})`,
   },
 
@@ -37,5 +40,16 @@ function createSliderData(min = 0, max = 100, step = 1, start = max) {
     start,
     step,
     connect: 'lower',
+    format: {
+      to: function (value) {
+        if (Number.isInteger(value)) {
+          return value.toFixed(0);
+        }
+        return value.toFixed(1);
+      },
+      from: function (value) {
+        return parseFloat(value);
+      },
+    },
   };
 }

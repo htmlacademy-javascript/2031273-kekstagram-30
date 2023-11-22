@@ -1,13 +1,13 @@
-import { getElement } from './util.js';
 import noUiSlider from 'nouislider';
 import 'nouislider/dist/nouislider.css';
 import { EFFECT_OPTION_MAP } from './effects.js';
 
-const sliderElement = getElement('.effect-level__slider');
-const form = getElement('.img-upload__form');
-const image = getElement('.img-upload__preview img');
-const effectsWrapper = getElement('.effects__list');
-const sliderFieldset = getElement('.img-upload__effect-level');
+const sliderElement = document.querySelector('.effect-level__slider');
+const image = document.querySelector('.img-upload__preview img');
+const effectsWrapper = document.querySelector('.effects__list');
+const sliderFieldset = document.querySelector('.img-upload__effect-level');
+const form = document.querySelector('.img-upload__form');
+
 const CHANGE_EVENT = new Event('change');
 
 const slider = noUiSlider.create(sliderElement, EFFECT_OPTION_MAP.none.slider);
@@ -40,22 +40,3 @@ export const resetEffect = () => {
   form.effect.value = 'none';
   effectsWrapper.dispatchEvent(CHANGE_EVENT);
 };
-
-const closeFormButton = getElement('.img-upload__cancel');
-closeFormButton.addEventListener('click', resetEffect);
-
-const uploadInput = getElement('.img-upload__input');
-uploadInput.addEventListener('change', resetEffect);
-
-const fileInput = getElement('.img-upload__input');
-fileInput.addEventListener('change', (event) => {
-  const file = event.target.files[0];
-  const reader = new FileReader();
-
-  reader.onload = (e) => {
-    image.src = e.target.result;
-    resetEffect();
-  };
-
-  reader.readAsDataURL(file);
-});
