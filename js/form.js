@@ -1,7 +1,8 @@
 import { changeImage } from './scale-img.js';
-import { isValid } from './validate-form';
-import { sendData } from './api';
-import { resetEffect } from './slider';
+import { isValid } from './validate-form.js';
+import { sendData } from './api.js';
+import { resetEffect } from './slider.js';
+import { resetPristine } from './validate-form.js';
 
 const form = document.querySelector('.img-upload__form');
 const imageInput = document.querySelector('.img-upload__input');
@@ -35,6 +36,7 @@ const resetForm = () => {
   form.reset();
   changeImage(100);
   onCloseImageUpload();
+  resetPristine();
 };
 
 function onDocumentKeydown(evt) {

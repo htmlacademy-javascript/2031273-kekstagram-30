@@ -1,8 +1,8 @@
 import Pristine from 'pristinejs';
 
-const textHashtags = document.querySelector('.text__hashtags');
-const textDescriptions = document.querySelector('.text__description');
 const form = document.querySelector('.img-upload__form');
+const textHashtags = document.querySelector('.text__hashtags');
+const textDescription = document.querySelector('.text__description');
 const pristine = new Pristine(form, {
   classTo: 'img-upload__field-wrapper',
   errorClass: 'img-upload__field-wrapper--error',
@@ -11,11 +11,10 @@ const pristine = new Pristine(form, {
 });
 
 pristine.addValidator(
-  textDescriptions,
+  textDescription,
   (value) => value.length < 140,
   'Длина комментария больше 140 символов'
 );
-
 
 pristine.addValidator(
   textHashtags,
@@ -68,3 +67,4 @@ pristine.addValidator(
 );
 
 export const isValid = () => pristine.validate();
+export const resetPristine = () => pristine.reset();
