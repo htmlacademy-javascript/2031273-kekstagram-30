@@ -6,9 +6,17 @@ const RERENDER_DELAY = 500;
 const filterWrapper = document.querySelector('.img-filters');
 const filterButtons = document.querySelectorAll('.img-filters__button');
 
+let currentFilter = 'default';
+let initialImages = [];
+
+const getUniqueRandomPhotos = (photos, count) => {
+  const shuffled = photos.sort(() => 0.5 - Math.random());
+  return shuffled.slice(0, count);
+};
+
 const getFilters = (images) => ({
   default: images,
-  random: images.slice(0, 10),
+  random: getUniqueRandomPhotos(images, 10),
   discussed: [...images].sort((a, b) => b.comments.length - a.comments.length),
 });
 
@@ -22,30 +30,41 @@ const toggleActiveButton = (target) => {
   target.classList.add('img-filters__button--active');
 };
 
-let currentFilter = 'default';
+const resetToDefault = () => {
+  currentFilter = 'default';
+  renderPhoto(initialImages);
+  toggleActiveButton(document.getElementById('filter-default'));
+};
+
+const showDefaultPhotos = () => {
+  currentFilter = 'default';
+  renderPhoto(initialImages);
+  toggleActiveButton(document.getElementById('filter-default'));
+};
 
 export const showFilters = (images) => {
   filterWrapper.classList.remove('img-filters--inactive');
+  initialImages = images.slice();
+
   const filters = getFilters(images);
   const debounceRenderPhoto = debounce(renderPhoto, RERENDER_DELAY);
 
-  const handleClick = (evt) => {
-    const filterName = evt.target.id.replace('filter-', '');
-
-    if (isButtonNotActive(evt.target)) {
-      toggleActiveButton(evt.target);
-      currentFilter = filterName;
-      if (filterName === 'random') {
-        const randomPhotos = images.sort(() => 0.5 - Math.random()).slice(0, 10);
-        renderPhoto(randomPhotos);
-      } else {
-        debounceRenderPhoto(filters[currentFilter]);
-      }
-    }
-  };
-
   filterButtons.forEach((filterButton) => {
-    filterButton.removeEventListener('click', handleClick);
-    filterButton.addEventListener('click', handleClick);
+    filterButton.addEventListener('click', (evt) => {
+      const filterName = evt.target.id.replace('filter-', '');
+      if (isButtonNotActive(evt.target)) {
+        toggleActiveButton(evt.target);
+        currentFilter = filterName;
+        if (currentFilter === 'random') {
+          renderPhoto(getUniqueRandomPhotos(images, 10));
+        } else if (currentFilter === 'default') {
+          showDefaultPhotos();
+        } else {
+          debounceRenderPhoto(filters[currentFilter]);
+        }
+      }
+    });
   });
+
+  document.getElementById('filter-default').addEventListener('click', resetToDefault);
 };
