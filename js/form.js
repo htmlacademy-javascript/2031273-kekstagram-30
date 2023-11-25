@@ -40,22 +40,18 @@ const resetForm = () => {
 };
 
 function onDocumentKeydown(evt) {
-  const isFormOpen = !imageUpload.classList.contains('hidden');
-  const isErrorOpen = !!document.querySelector('.error');
+  const isError = document.querySelector('.error');
 
-  if (evt.key === 'Escape') {
+  const isForm =
+    document.activeElement === document.querySelector('.text__hashtags') ||
+    document.activeElement === document.querySelector('.text__description');
+
+  if (evt.key === 'Escape' && !isForm && !isError) {
     evt.preventDefault();
-    if (isErrorOpen) {
-      document.querySelector('.error').remove();
-    } else if (isFormOpen) {
-      onCloseImageUpload();
-      resetForm();
-    }
+    onCloseImageUpload();
+    resetForm();
   }
 }
-
-document.addEventListener('keydown', onDocumentKeydown);
-
 
 imageInput.addEventListener('change', onOpenImageUpload);
 closeImageButton.addEventListener('click', onCloseImageUpload);
@@ -104,20 +100,18 @@ const showAlertSendData = () => {
 
 form.addEventListener('submit', async (evt) => {
   evt.preventDefault();
+
   if (isValid()) {
     try {
       toggleSubmitButton(true);
       await sendData(new FormData(evt.target));
       showSuccess();
       resetForm();
-      toggleSubmitButton(false);
     } catch (err) {
       showAlertSendData();
+    } finally {
       toggleSubmitButton(false);
     }
-  } else {
-    showAlertSendData();
   }
 });
-
 
