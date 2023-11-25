@@ -1,7 +1,8 @@
 import { changeImage } from './scale-img.js';
-import { isValid } from './validate-form';
-import { sendData } from './api';
-import { resetEffect } from './slider';
+import { isValid } from './validate-form.js';
+import { sendData } from './api.js';
+import { resetEffect } from './slider.js';
+import { resetPristine } from './validate-form.js';
 
 const form = document.querySelector('.img-upload__form');
 const imageInput = document.querySelector('.img-upload__input');
@@ -35,19 +36,26 @@ const resetForm = () => {
   form.reset();
   changeImage(100);
   onCloseImageUpload();
+  resetPristine();
 };
 
 function onDocumentKeydown(evt) {
-  const isForm =
-    document.activeElement === document.querySelector('.text__hashtags') ||
-    document.activeElement === document.querySelector('.text__description');
+  const isFormOpen = !imageUpload.classList.contains('hidden');
+  const isErrorOpen = !!document.querySelector('.error');
 
-  if (evt.key === 'Escape' && !isForm) {
+  if (evt.key === 'Escape') {
     evt.preventDefault();
-    onCloseImageUpload();
-    resetForm();
+    if (isErrorOpen) {
+      document.querySelector('.error').remove();
+    } else if (isFormOpen) {
+      onCloseImageUpload();
+      resetForm();
+    }
   }
 }
+
+document.addEventListener('keydown', onDocumentKeydown);
+
 
 imageInput.addEventListener('change', onOpenImageUpload);
 closeImageButton.addEventListener('click', onCloseImageUpload);
@@ -96,17 +104,20 @@ const showAlertSendData = () => {
 
 form.addEventListener('submit', async (evt) => {
   evt.preventDefault();
-
   if (isValid()) {
     try {
       toggleSubmitButton(true);
       await sendData(new FormData(evt.target));
       showSuccess();
       resetForm();
+      toggleSubmitButton(false);
     } catch (err) {
       showAlertSendData();
-    } finally {
-      toggleSubmitButton();
+      toggleSubmitButton(false);
     }
+  } else {
+    showAlertSendData();
   }
 });
+
+
