@@ -1,8 +1,9 @@
+const REMOVE_MESSAGE_TIMEOUT = 5000;
+
 const errorMessageTemplate = document
   .querySelector('#data-error')
   .content
   .querySelector('.data-error');
-const REMOVE_MESSAGE_TIMEOUT = 5000;
 
 const getRandomNumber = (min, max) =>
   Math.floor(Math.random() * (max - min + 1) + min);
