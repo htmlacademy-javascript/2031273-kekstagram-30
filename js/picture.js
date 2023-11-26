@@ -53,6 +53,7 @@ const hidePicture = () => {
   commentsCountShown = 0;
   bigPictureElement.classList.add('hidden');
   bodyElement.classList.remove('modal-open');
+  // eslint-disable-next-line no-use-before-define
   document.removeEventListener('keydown', onDocumentKeydown);
 };
 
@@ -61,12 +62,12 @@ const onClosePictureButtonClick = () => {
   hidePicture();
 };
 
-function onDocumentKeydown(evt) {
+const onDocumentKeydown = (evt) => {
   if (evt.key === 'Escape') {
     evt.preventDefault();
     hidePicture();
   }
-}
+};
 
 const renderPicture = ({ url, description, likes }) => {
   bigPictureElement.querySelector('.big-picture__img img').src = url;

@@ -1,9 +1,12 @@
 import { renderComments } from './render-comments.js';
+
 const photoElement = document.querySelector('.big-picture');
 
 const onDocumentKeydown = (evt) => {
   if (evt.key === 'Escape') {
     evt.preventDefault();
+    evt.preventDefault();
+    // eslint-disable-next-line no-use-before-define
     closePhoto();
   }
 };
@@ -26,9 +29,9 @@ const openPhoto = (photo) => {
   document.addEventListener('keydown', onDocumentKeydown);
 };
 
-function closePhoto() {
+const closePhoto = () => {
   toggleClasses(false);
   document.removeEventListener('keydown', onDocumentKeydown);
-}
+};
 
 export { openPhoto, closePhoto };

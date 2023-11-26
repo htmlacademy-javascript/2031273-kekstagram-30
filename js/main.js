@@ -5,6 +5,8 @@ import { getData } from './api.js';
 import { showErrorMessage } from './util.js';
 import { showFilters } from './filter.js';
 
+const ALERT_TIMEOUT = 5000;
+
 const showAlertGetData = () => {
   const errorFragment =
     document.querySelector('#data-error').content.firstElementChild;
@@ -12,7 +14,7 @@ const showAlertGetData = () => {
   const errorElement = errorFragment.cloneNode(true);
   setInterval(() => {
     errorElement.remove();
-  }, 5000);
+  }, ALERT_TIMEOUT);
 };
 
 try {
