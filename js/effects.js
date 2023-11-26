@@ -1,3 +1,22 @@
+const createSliderData = (min = 0, max = 100, step = 1, start = max) => ({
+  range: {
+    min,
+    max,
+  },
+  start,
+  step,
+  connect: 'lower',
+  format: {
+    to: (value) => {
+      if (Number.isInteger(value)) {
+        return value.toFixed(0);
+      }
+      return value.toFixed(1);
+    },
+    from: (value) => parseFloat(value),
+  },
+});
+
 const FROM_ZERO_TO_ONE = createSliderData(0, 1, 0.1);
 const FROM_ZERO_TO_HUNDRED = createSliderData(0, 100);
 
@@ -30,26 +49,3 @@ export const EFFECT_OPTION_MAP = {
     filter: (value) => `brightness(${value})`,
   },
 };
-
-function createSliderData(min = 0, max = 100, step = 1, start = max) {
-  return {
-    range: {
-      min,
-      max,
-    },
-    start,
-    step,
-    connect: 'lower',
-    format: {
-      to: function (value) {
-        if (Number.isInteger(value)) {
-          return value.toFixed(0);
-        }
-        return value.toFixed(1);
-      },
-      from: function (value) {
-        return parseFloat(value);
-      },
-    },
-  };
-}

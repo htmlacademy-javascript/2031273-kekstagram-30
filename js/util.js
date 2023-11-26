@@ -1,15 +1,16 @@
+const REMOVE_MESSAGE_TIMEOUT = 5000;
+
 const errorMessageTemplate = document
   .querySelector('#data-error')
   .content
   .querySelector('.data-error');
-const REMOVE_MESSAGE_TIMEOUT = 5000;
 
 const getRandomNumber = (min, max) =>
   Math.floor(Math.random() * (max - min + 1) + min);
 
 const getRandomElement = (array) => array[getRandomNumber(0, array.length - 1)];
 
-function createUniqueIdGenerator(min, max) {
+const createUniqueIdGenerator = (min, max) => {
   const usedIds = new Set();
 
   if (min > max) {
@@ -31,9 +32,9 @@ function createUniqueIdGenerator(min, max) {
 
     return randomId;
   };
-}
+};
 
-function debounce(callback, timeoutDelay = 500) {
+const debounce = (callback, timeoutDelay = 500) => {
   let timeoutId;
 
   return (...rest) => {
@@ -41,9 +42,9 @@ function debounce(callback, timeoutDelay = 500) {
 
     timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
   };
-}
+};
 
-function throttle(callback, delayBetweenFrames) {
+const throttle = (callback, delayBetweenFrames) => {
   let lastTime = 0;
 
   return (...rest) => {
@@ -54,16 +55,16 @@ function throttle(callback, delayBetweenFrames) {
       lastTime = now;
     }
   };
-}
+};
 
-function showErrorMessage () {
+const showErrorMessage = () => {
   const errorElement = errorMessageTemplate.cloneNode(true);
   document.body.append(errorElement);
 
   setTimeout(() => {
     errorElement.remove();
   }, REMOVE_MESSAGE_TIMEOUT);
-}
+};
 
 export {
   getRandomNumber, getRandomElement, createUniqueIdGenerator, debounce, throttle, showErrorMessage,

@@ -22,12 +22,14 @@ const toggleSubmitButton = (isDisabled) => {
 
 const onOpenImageUpload = () => {
   toggleClasses();
+  // eslint-disable-next-line no-use-before-define
   document.addEventListener('keydown', onDocumentKeydown);
 };
 
 const onCloseImageUpload = () => {
   imageInput.value = '';
   toggleClasses(false);
+  // eslint-disable-next-line no-use-before-define
   document.removeEventListener('keydown', onDocumentKeydown);
 };
 
@@ -39,7 +41,7 @@ const resetForm = () => {
   resetPristine();
 };
 
-function onDocumentKeydown(evt) {
+const onDocumentKeydown = (evt) => {
   const isError = document.querySelector('.error');
 
   const isForm =
@@ -51,7 +53,7 @@ function onDocumentKeydown(evt) {
     onCloseImageUpload();
     resetForm();
   }
-}
+};
 
 imageInput.addEventListener('change', onOpenImageUpload);
 closeImageButton.addEventListener('click', onCloseImageUpload);

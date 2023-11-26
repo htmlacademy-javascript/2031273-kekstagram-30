@@ -2,13 +2,13 @@ import noUiSlider from 'nouislider';
 import 'nouislider/dist/nouislider.css';
 import { EFFECT_OPTION_MAP } from './effects.js';
 
+const CHANGE_EVENT = new Event('change');
+
 const sliderElement = document.querySelector('.effect-level__slider');
 const image = document.querySelector('.img-upload__preview img');
 const effectsWrapper = document.querySelector('.effects__list');
 const sliderFieldset = document.querySelector('.img-upload__effect-level');
 const form = document.querySelector('.img-upload__form');
-
-const CHANGE_EVENT = new Event('change');
 
 const slider = noUiSlider.create(sliderElement, EFFECT_OPTION_MAP.none.slider);
 

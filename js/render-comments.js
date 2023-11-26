@@ -1,10 +1,11 @@
+const PACK_SIZE = 5;
+
 const list = document.querySelector('.social__comments');
 const loaderButton = document.querySelector('.social__comments-loader');
 const photoElement = document.querySelector('.big-picture');
 const totalCount = photoElement.querySelector('.social__comment-total-count');
 const shownCount = photoElement.querySelector('.social__comment-shown-count');
 
-const PACK_SIZE = 5;
 let allComments = [];
 
 const createComment = (comment) => {
